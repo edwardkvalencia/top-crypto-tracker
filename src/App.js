@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import logo from './logo.svg';
 import './App.css';
 import Coin from './components/Coin/Coin.jsx'
+import AccountBalance from './components/AccountBalance/AccountBalance'
 
 function App() {
   return (
@@ -11,8 +12,10 @@ function App() {
         <h1 className="App-title">
           Coin Exchange
         </h1>
-
       </header>
+
+      <AccountBalance amount={10000} />
+
       <table className="Coin-table">
         <thead>
           <tr>
@@ -29,6 +32,7 @@ function App() {
           <Coin name="Ripple" ticker="XRP" price={.30} />
         </tbody>
       </table>
+      
     </div>
   );
 }
