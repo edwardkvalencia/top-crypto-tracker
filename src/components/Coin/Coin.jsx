@@ -7,24 +7,28 @@ const Td = styled.td`
     width: 25vh;
 `;
 
-
-export default class Coin extends Component {
-    constructor(props) {
-        super(props);
-        this.handleClick = this.handleClick.bind(this);
+const Button = styled.button`
+    height: 2rem;
+    width: 100%;
+    background-color: #282c34;
+    color: #61dafb;
+    border: none;
+    font-size: 1rem;
+    :active {
+        background: #0053ba;
     }
-    
-    handleClick(event) {
+    :hover {
+        border: 1px solid #cccccc;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+`;
+
+export default class Coin extends Component {    
+    handleClick = (event) => {
         // Prevent default from submitting the form
         event.preventDefault();
         this.props.handleRefresh(this.props.ticker);
-
-        // const randomPercentage = 0.995 + Math.random() * 0.01;
-        // this.setState(function(oldState) {
-        //     return {
-        //         price: oldState.price * randomPercentage
-        //     };
-        // });
     }
     render() {
         return (
@@ -32,6 +36,7 @@ export default class Coin extends Component {
                 <Td>{this.props.name}</Td>
                 <Td>{this.props.ticker}</Td>
                 <Td>${this.props.price}</Td>
+                {this.props.showBalance ? <Td>{this.props.balance}</Td> : null}
                 <Td>
                     <form action="#" method="POST">
                         <button onClick={this.handleClick}>
