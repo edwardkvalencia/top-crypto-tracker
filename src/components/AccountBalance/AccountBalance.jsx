@@ -4,45 +4,61 @@ import styled from 'styled-components'
 
 const Section = styled.section`
     font-size: 2rem;
-    text-aligh: left;
-    padding: 1.5rem 0 1.5rem 5rem;
+    text-aligh: center;
+    margin-button: 2rem;
+    line-height: 3rem;
+    display: inline-block;
 
+`;
+
+const Balance = styled.div`
+    min-width: 250px;
+    margin: 0.5rem 0 0 2.5rem;
+    font-size: 1.5rem;
+    vertical-align: middle;
+    //text-align: left;
 `;
 
 const Button = styled.button`
-    margin: 10px auto 0 auto;
-    float: right;
-    border: none;
-    background-color: #282c34;
-    color: #61dafb;
-    font-size: 1.4rem;
-    :active {
-        background: #0053ba;
-    }
-    :hover {
-        border: 1px solid #cccccc;
-        border-radius: 3px;
-        cursor: pointer;
-    }
+    margin: 0 8px;
 `;
+
+const BalanceToggleButton = styled(Button)`
+    width: 120px;
+`;
+
+var formatter = Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD'
+});
 
 export default function AccountBalance(props) {    
 
     const buttonText = props.showBalance ? 'Hide Balance' : 'Show Balance';
-    let content = null;
-    if( props.showBalance ) {
-        content = <>Balance: ${props.amount}</>;
+    let content = '\u00A0';
+    if (props.showBalance) {
+        content = <>{ formatter.format(props.amount)} </>
     }
+    const buttonClass = 'btn ' + (props.showBalance ? 'btn-warning' : 'btn-info');
     
     return (
-        <Section>
-            {content}
-            <Button onClick={props.handleBalanceVisibilityChange}>  
-                {buttonText}
-            </Button>
-        </Section>
+        <div>
+            <Balance>{content}</Balance>
+            <Section>
+                <BalanceToggleButton 
+                    onClick={props.handleBalanceVisibilityChange}
+                    className={buttonClass}
+                >  
+                    {buttonText}
+                </BalanceToggleButton>
+                <Button className='btn btn-success'
+                    onClick={props.handleBrr}
+                >
+                    <i className="fas fa-helicopter"></i>
+                </Button>
+            </Section>
+        </div>        
     );
-
 }
 
 
